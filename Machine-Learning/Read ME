@@ -1,0 +1,25 @@
+This course  provided an introduction to machine learning methods and learning theory. Students will acquire a general background on machine learning and pattern recognition, including state-of-the-art techniques in supervised and unsupervised learning. The course will include five problem sets that are related to the course outline. Students will work individually or as part of teams to complete a term project that will pertain on the application of these methods in different scientific fields.  Topics will include:
+
+Supervised learning
+Regression
+Generative learning
+Naive Bayes
+Bayesian learning
+Discriminative learning
+K-nearest neighbors
+Decision trees
+Support Vector Machines (SVM) and kernels
+Unsupervised learning
+Clustering (K-means, hierarchical)
+Dimensionality reduction methods (principal component analysis, independent component analysis)
+Association rule mining
+Self-organizing maps
+Learning theory
+Bias-variance trade-offs
+Kernels
+Statistical validation
+VC Theory
+ML applications in other fields (Social networks, biology, image processing)
+Students will have to complete a computational/review project in coordination with the instructor.
+
+Goals: Students will (1) Acquire fundamental knowledge of learning theory; (2) Learn how to design and evaluate supervised and unsupervised machine learning algorithms; and (3) Learn how to use machine learning methods for multivariate data analysis in various scientific fields.

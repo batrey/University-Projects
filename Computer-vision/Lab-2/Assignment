@@ -1,0 +1,33 @@
+1. Colorquantizationwithk-means[40points]
+For this problem you will write code to quantize a color space by applying k-means clustering to the pixels in a given input image, and experiment with two different color spaces—RGB and HSV. Write Matlab functions as defined below. Save each function in a file called <function-name>.m and submit all of them.
+(a) [5 points] Given an RGB image, quantize the 3-dimensional RGB space, and map each pixel in the input image to its nearest k-means center. That is, replace the RGB value at each pixel with its nearest cluster’s average RGB value. Use the following form:
+Function [outputImg, meanColors] = quantizeRGB(origImg, k)
+where origImg and outputImg are MxNx3 matrices of type uint8, k specifies the number of colors to quantize to, and meanColors is a k x 3 array of the k centers. Matlab tip: if the variable origImg is a 3d matrix containing a color image with numpixels pixels, X = reshape(origImg, numpixels, 3); will yield a matrix with the RGB features as its rows.
+2
+(b) [5points]GivenanRGBimage,converttoHSV,andquantizethe1-dimensionalHuespace.Mapeach pixel in the input image to its nearest quantized Hue value, while keeping its Saturation and Value channels the same as the input. Convert the quantized output back to RGB color space. Use the following form:
+Function [outputImg, meanHues] = quantizeHSV(origImg, k)
+where origImg and outputImg are MxNx3 matrices of type uint8, k specifies the number of
+clusters, and meanHues is a k x 1 vector of the hue centers.
+(c) [5 points] Write a function to compute the SSD error (sum of squared distances error) between the
+original RGB pixel values and the quantized values, with the following form:
+function [error] = computeQuantizationError(origImg,quantizedImg) where origImg and quantizedImg are both RGB images, and error is a scalar giving the total
+SSD error across all pixels in the image.
+(d) [5 points] Given an image, compute and display two histograms of its hue values. Let the first histogram use k equally-spaced bins (uniformly dividing up the hue values), and let the second histogram use bins defined by the k cluster center memberships (i.e., all pixels belonging to hue cluster i go to the i-th bin, for i=1,...k). Use the following form:
+function [histEqual, histClustered] = getHueHists(im, k)
+where im is an MxNx3matrix representing an RGB image, and histEqual and histClustered
+are the two output histograms.
+(e) [5 points] Write a script colorQuantizeMain.m that calls all the above functions appropriately using the provided image fish.jpg, and displays the results. Calculate the SSD error for the image quantized in both RGB and HSV space. Write down the SSD errors in your answer sheet. Illustrate the quantization with a lower (k=5) and higher (k=25) value of k. Be sure to convert an HSV image back to RGB before displaying with imshow. Label all plots clearly with titles.
+(f) [15 points] In your write-up, explain all the results. How do the two forms of histogram differ? How and why do results vary depending on the color space? The value of k? Across different runs of k- means (with the same value of k)?
+Matlab useful functions: kmeans, rgb2hsv, hsv2rgb, imshow, im2double, reshape, subplot, title, hist.
+2. Circle detection with the Hough Transform [40 points]
+ImplementaHoughTransformcircledetectorthattakesaninputimageandafixedradius,andreturns the
+3
+centers of any detected circles of about that size. Include a function with the following form:
+Function [centers] = detectCircles(im, radius, useGradient)
+where im is the input image, radius specifies the size of circle we are looking for, and useGradient is a flag that allows the user to optionally exploit the gradient direction measured at the edge points. The output centers is an N x 2 matrix in which each row lists the (x,y) position of a detected circle’s center. Save this function in a file called detectCircles.m and submit it.
+Then experiment with the basic framework, and in your write-up analyze the following:
+(a) [10 points] Explain your implementation in concise steps (English, not code).
+(b) [10 points] Demonstrate the function applied to the provided images jupiter.jpg and egg.jpg (and an image of your choosing if you like). Display the accumulator arrays obtained by setting useGradient to 0 and 1. In each case, display the images with detected circle(s), labeling the figure with the radius. You can use impixelinfo to estimate the radius of interest manually.
+(c) [10 points] For one of the images, display and briefly comment on the appearance of the Hough space accumulator array.
+(d) [5 points] Experiment with ways to determine how many circles are present by post-processing the accumulator array.
+(e) [5points]Foroneoftheimages,demonstratetheimpactofthevotespacequantization(binsize).

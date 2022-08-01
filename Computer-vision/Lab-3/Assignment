@@ -1,0 +1,52 @@
+Programming: Video search with bag of visual words [85 points]
+For this problem, you will implement a video search method to retrieve relevant frames from a video based on the features in a query region selected from some frame. We are providing the image data and some starter code for this assignment.
+Provided data
+You can access pre-computed SIFT features here:
+• /usr/local/189data/sift/ (accessible from CSIF machines)
+or
+• \\coe-itss-bfs.engr.ucdavis.edu\Classdata\ECS189\Materials\sift\ (accessible from COE machines
+in your T drive; e.g., Academic Surge lab machines)
+The associated images are stored here:
+• /usr/local/189data/frames/ (accessible from CSIF machines)
+or
+• \\coe-itss-bfs.engr.ucdavis.edu\Classdata\ECS189\Materials\frames\ (accessible from COE
+machines in your T drive; e.g., Academic Surge lab machines)
+Please note the data takes about 3 GB, so you should *not* try to copy it to your home directory. Just point to the data files directly in your code. If you would like to download the data (e.g., to work on your own machine), they are also available here:
+SIFT features: https://ucdavis.box.com/s/4rrs7bp6cszrg6xrb6cr6v2mupnemwgu
+Associated Images: https://ucdavis.box.com/s/0pn2bmlfr98o8hs3yjhjdgiluz9lvald
+Each .mat file in the provided SIFT data corresponds to a single image, and contains the following
+variables, where n is the number of detected SIFT features in that image:
+descriptors nx128 single // SIFT vectors as rows
+imname 1x57 char // name of image file that goes with this data
+   
+numfeats 1x1 orients nx1 positions nx2 scales nx1
+Provided code
+single //numberofdetectedfeatures single //orientationsofthepatches single //positionsofthepatchcenters single //scalesofthepatches
+The following are the provided code files. You are not required to use any of these functions, but you will probably find them helpful. You can access the code here: http://web.cs.ucdavis.edu/~yjlee/teaching/ecs189g-spring2015/psets/pset3/pset3code.zip
+• loadDataExample.m: Run this first and make sure you understand the data format. It is a script that shows a loop of data files, and how to access each descriptor. It also shows how to use some of the other functions below.
+• displaySIFTPatches.m: given SIFT descriptor info, it draws the patches on top of an image
+• getPatchFromSIFTParameters.m: given SIFT descriptor info, it extracts the image patch itself and returns as a single image
+• selectRegion.m: given an image and list of feature positions, it allows a user to draw a polygon showing a region of interest, and then returns the indices within the list of positions that fell within the polygon.
+• dist2.m: a fast implementation of computing pairwise distances between two matrices for which each row is a data point
+• kmeansML.m: a faster k-means implementation that takes the data points as columns What to implement and discuss in the write-up
+Write one script for each of the following (along with any helper functions you find useful), and in your pdf writeup report on the results, explain, and show images where appropriate. Your code must access the frames and the SIFT features from subfolders called ‘frames’ and ‘sift’, respectively, in your main working directory.
+1. Raw descriptor matching [20 pts]: Allow a user to select a region of interest (see provided selectRegion.m) in one frame, and then match descriptors in that region to descriptors in the second image based on Euclidean distance in SIFT space. Display the selected region of interest in the first image (a polygon), and the matched features in the second image, something like the below example. Use the two images and associated features in the provided file twoFrameData.mat (in the zip file) to demonstrate. Note, no visual vocabulary should be used for this one. Name your script rawDescriptorMatches.m
+   
+ 2. Visualizing the vocabulary [20 pts]: Build a visual vocabulary. Display example image patches associated with two of the visual words. Choose two words that are distinct to illustrate what the different words are capturing, and display enough patch examples so the word content is evident (e.g., say 25 patches per word displayed). See provided helper function getPatchFromSIFTParameters.m. Explain what you see. Name your script visualizeVocabulary.m. Please submit your visual words in a file called kMeans.mat. This file should contain a matrix of size kx128 called kMeans.
+3. Full frame queries [20 pts]: After testing your code for bag-of-words visual search, choose 3 different frames from the entire video dataset to serve as queries. Display each query frame and its M=5 most similar frames (in rank order) based on the normalized scalar product between their bag of words histograms. Explain the results. Name your script fullFrameQueries.m
+4. Region queries [25 pts]: Select your favorite query regions from within 4 frames (which may be different than those used above) to demonstrate the retrieved frames when only a portion of the SIFT descriptors are used to form a bag of words. Try to include example(s) where the same object is found in the most similar M frames but amidst different objects or backgrounds, and also include a failure case. Display each query region (marked in the frame as a polygon) and its M=5 most similar frames. Explain the results, including possible reasons for the failure cases. Name your script regionQueries.m
+Tips: overview of framework requirements
+The basic framework will require these components:
+• Compute nearest raw SIFT descriptors. Use the Euclidean distance between SIFT descriptors to determine which are nearest among two images’ descriptors. That is, “match” features from one image to the other, without quantizing to visual words.
+• Form a visual vocabulary. Cluster a large, representative random sample of SIFT descriptors from some portion of the frames using k-means. Let the k centers be the visual words. The value of k is a free parameter; for this data something like k=1500 should work, but feel free to play with this parameter [see Matlab’s kmeans function, or provided kmeansML.m code]. Note: you may run out of memory if you use all the provided SIFT descriptors to build the vocabulary.
+• •
+• •
+•
+3
+• •
+Map a raw SIFT descriptor to its visual word. The raw descriptor is assigned to the nearest visual word. [see provided dist2.m code for fast distance computations]
+Map an image’s features into its bag-of-words histogram. The histogram for image I j is a k- dimensional vector: F (I j ) = [ freq1,j , freq2,j , ... , freqk,j], where each entry freqi,j counts the
+number of occurrences of the i-th visual word in that image, and k is the number of total words in the vocabulary. In other words, a single image’s list of n SIFT descriptors yields a k- dimensional bag of words histogram. [Matlab’s histc is a useful function]
+Compute similarity scores. Compare two bag-of-words histograms using the normalized scalar product.
+Sort the similarity scores between a query histogram and the histograms associated with the rest of the images in the video. Pull up the images associated with the M most similar examples. [see Matlab’s sort function]
+Form a query from a region within a frame. Select a polygonal region interactively with the mouse, and compute a bag of words histogram from only the SIFT descriptors that fall withinthatregion. Optionally,weightitwithtf-idf.[seeprovidedselectRegion.mcode]

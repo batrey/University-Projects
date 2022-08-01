@@ -1,0 +1,5 @@
+(load "hw4.l")
+(load "test.l") 
+(format t "~%~10TBEGIN TESTING~2%")
+(tq) 
+(format t "~%~10TBEGIN TESTING~2%")

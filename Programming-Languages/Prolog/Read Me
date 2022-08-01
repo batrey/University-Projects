@@ -1,0 +1,10 @@
+Aim
+
+This project is just an exercise in Prolog, completed for a class assignment: ECS 140 hw5.
+
+Files
+
+hw5.pl - my code
+part1.facts.pl -  facts to populate the database
+test.pl -  execute them with test.sh
+test.sh - shell script to run tests and diff the output against an answer key

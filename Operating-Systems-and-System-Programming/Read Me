@@ -1,0 +1,27 @@
+Summary of course contents
+
+Overview
+Purposes and Types of Operating Systems
+Concepts of Layered OS Design, Process-Oriented Structure and Virtual Machines
+Interactions with Computer Architecture
+Process Management
+Need for Concurrency and Threading
+Concept of Virtual Machine
+Process Synchronization Mechanisms and Deadlock
+Process/Thread Scheduling with the consideration of Multicore architecture
+Program Loading, Linking and Memory Management
+Introduction to Computer Security
+I/O and File Systems
+Layered I/O System Software
+Terminal I/O
+Disk I/O
+File Structures
+File system reliability and integrity check
+Systems Programming
+System-Dependent Software Design and Development
+Operating System Software, especially for Process Control, Memory Management, Input/Output and File Management
+UNIX System Calls
+The four laboratory projects involve modification of Unix-like operating systems such as Linux, FreeBSD, or Minix. The students will gain experience in operating system design and implementation through these assignments. Projects involve design and creation of modified schedulers, addition of I/O drivers, memory allocation, and other projects requiring extensive design and modification of operating system source code. Design, testing and performance evaluation of completed projects are important components in grading these projects.
+
+Goals: Students will be introduced to the design and implementation of modern, process oriented operating systems.
+
